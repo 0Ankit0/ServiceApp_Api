@@ -8,10 +8,14 @@ async function setupChangeStream(req, res, next) {//make sure your database is r
     const FilterStream = [
         {
             $match: {
-                'updateDescription.updatedFields.Status': { $exists: true }
+                $and: [
+                    { "updateDescription.updatedFields.Status": { $exists: true } },
+                    { operationType: "update" }
+                ]
             }
         }
-    ]
+    ];
+
     const changeStream = Request.watch(FilterStream);
     try {
         changeStream.on('change', (data) => {
