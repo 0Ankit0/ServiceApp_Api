@@ -1,4 +1,4 @@
-import { Request } from "../Modals/requests";
+import { Request } from "../Modals/requests.js";
 import { Router } from "express";
 
 const requestRouter = Router();

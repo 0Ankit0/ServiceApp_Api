@@ -1,4 +1,4 @@
-import { Service } from "../Modals/services";
+import { Service } from "../Modals/services.js";
 import { Router } from "express";
 
 const serviceRouter = Router();
