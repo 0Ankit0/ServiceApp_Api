@@ -23,14 +23,14 @@ userRouter.get('/', async (req, res) => { //this is /user/index page
 
 userRouter.post('/login', limiter, async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email }).exec();
-        const isValid = await comparePassword(user.password, req.body.password);
-        if (!isValid) return res.json({ message: "Invalid password" });
+        const user = await User.findOne({ Email: req.body.Email }).exec();
+        const isValid = await comparePassword(user.Password, req.body.Password);
+        if (!isValid) return res.status(status(401)).json({ message: "Invalid password" });
         const token = createJWT(user);
-        res.json({ message: token }); //will go in format token:value
+        res.status(200).json({ token: token, message: "Success" });
     } catch (error) {
         console.log(error);
-        res.json({ message: "Error occurred" })
+        res.status(401).json({ token: "", message: "Error occurred" })
     }
 });
 
