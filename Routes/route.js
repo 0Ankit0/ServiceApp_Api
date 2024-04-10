@@ -4,7 +4,8 @@ import userRouter from "./userRoute.js";
 import { protect } from "../Middleware/auth.js";
 import uploadRouter from "./uploadRoute.js";
 import mailRouter from "./mailRoute.js";
-import { setupChangeStream } from '../Middleware/ChangeStream.js';
+import CategoryRouter from "./CategoryRoute.js";
+// import { setupChangeStream } from '../Middleware/ChangeStream.js';
 import messageRouter from "./messageRoute.js";
 
 var app = express();
@@ -18,4 +19,5 @@ app.use('/user', userRouter);
 app.use('/upload', protect, uploadRouter);
 app.use('/sendmain', protect, mailRouter);
 app.use('/message', protect, messageRouter);
+app.use('/category', protect, CategoryRouter);
 export default app;
