@@ -5,7 +5,7 @@ import multer from "multer";
 const uploadRouter = Router();
 var router = express();
 router.get('/', async (req, res) => { //this is /upload/index page
-    res.send("Welcome to the upload page");
+    res.status(200).send("Welcome to the upload page");
 });
 
 
@@ -23,12 +23,12 @@ const upload = multer({ storage: storage });
 uploadRouter.post("/file", upload.single("file"), (req, res) => {
     // File has been uploaded and saved in the "uploads" folder
     const fileUrl = req.file.path;
-    res.send(`File uploaded successfully. File URL: ${fileUrl}`);
+    res.status(200).send(`${fileUrl}`);
 });
 uploadRouter.post("/files", upload.array("files"), (req, res) => {
     // Files have been uploaded and saved in the "uploads" folder 
     const fileUrls = req.files.map(file => file.path);
-    res.send(`Files uploaded successfully. File URLs: ${fileUrls.join(", ")}`);
+    res.status(200).send(`Files uploaded successfully. File URLs: ${fileUrls.join(", ")}`);
 });
 
 export default uploadRouter;
