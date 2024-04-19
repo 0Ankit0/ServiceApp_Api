@@ -26,7 +26,7 @@ const uploadsDir = path.join(__dirname, '..', 'uploads');
 app.use('/uploads', express.static(uploadsDir));
 app.use('/upload', protect, uploadRouter);
 
-app.use('/sendmail', protect, mailRouter);
+app.use('/mail', protect, mailRouter);
 app.use('/message', protect, messageRouter);
 app.use('/category', protect, CategoryRouter);
 export default app;
