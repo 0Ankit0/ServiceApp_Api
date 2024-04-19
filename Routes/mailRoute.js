@@ -5,7 +5,7 @@ const mailRouter = Router();
 
 
 mailRouter.post('/send', async (req, res) => {
-    const { emailAddress, emailBody } = req.body;
+    const { Email, Body } = req.body;
 
     // Create a transporter using SMTP
     // const transporter = nodemailer.createTransport({
@@ -30,9 +30,9 @@ mailRouter.post('/send', async (req, res) => {
     // Define the mail options
     const mailOptions = {
         from: 'your-email@example.com',
-        to: emailAddress,
+        to: Email,
         subject: 'Mail Subject',
-        text: emailBody
+        text: Body
     };
 
     try {
