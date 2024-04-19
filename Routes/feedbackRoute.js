@@ -1,4 +1,4 @@
-import { Feedback } from '../Modals/feedbackModal.js'
+import { Feedback } from '../Modals/feedbacks.js'
 import { Router } from 'express';
 
 const feedbackRouter = Router();

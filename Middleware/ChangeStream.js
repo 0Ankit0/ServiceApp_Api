@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { Request } from '../Modals/requests.js';
-
+import { io } from '../index.js';
 const eventEmitter = new EventEmitter();
 
 async function setupChangeStream(req, res, next) {//make sure your database is replica set enabled
@@ -10,7 +10,7 @@ async function setupChangeStream(req, res, next) {//make sure your database is r
             $match: {
                 $and: [
                     { "updateDescription.updatedFields.Status": { $exists: true } },
-                    { operationType: "update" }
+                    { "operationType": "update" }
                 ]
             }
         }
@@ -28,8 +28,9 @@ async function setupChangeStream(req, res, next) {//make sure your database is r
     }
 }
 
-eventEmitter.on('change', (change) => {
-    console.log('Change detected:', change);
+eventEmitter.on('change', (data) => {
+    console.log('Change detected:', data);
+    io.emit('change', data);
 });
 
 

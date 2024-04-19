@@ -1,17 +1,30 @@
-//Set-ExecutionPolicy RemoteSigned –Scope Process
-//run it at the start of the project
 import * as dotenv from 'dotenv';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import app from "./Routes/route.js";
+import Connect from "./Utils/Connection.js";
+
 dotenv.config();
-
-import app from "./Routes/route.js"
-import Connect from "./Utils/Connection.js"
-
+let io;
 try {
-
     const db = await Connect();
-    app.listen(process.env.PORT, () => { //put it at the end of the file
-        console.log(`listening on port ${process.env.PORT}`)
-    })
+    const httpServer = createServer(app);
+    const io = new Server(httpServer, {
+        // Socket.IO options go here
+    });
+
+    io.on('connection', (socket) => {
+        console.log('a user connected');
+        socket.on('disconnect', () => {
+            console.log('user disconnected');
+        });
+    });
+
+    httpServer.listen(process.env.PORT, () => {
+        console.log(`listening on port ${process.env.PORT}`);
+    });
+
 } catch (err) {
     console.log(err);
 }
+export { io }
