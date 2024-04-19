@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const createJWT = (user) => {
-    const token = jwt.sign({ id: user.id }, process.env.JWTSecret);
+    const token = jwt.sign({ id: user.id, name: user.Name }, process.env.JWTSecret);
     return token;
 }
 export const hashPassword = (password) => {
