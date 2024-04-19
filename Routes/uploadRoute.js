@@ -1,12 +1,21 @@
 import { Router } from "express";
 import express from "express";
 import multer from "multer";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 const uploadRouter = Router();
 var router = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const uploadsDir = path.join(__dirname, 'uploads');
+
 router.get('/', async (req, res) => { //this is /upload/index page
-    res.status(200).send("Welcome to the upload page");
-});
+    const fileUrls = fs.readdirSync(uploadsDir).map(file => `http://localhost:8000/uploads/${file}`);
+    res.status(200).send(`List of stored files: ${fileUrls.join(", ")}`);
+});;
 
 
 const storage = multer.diskStorage({
