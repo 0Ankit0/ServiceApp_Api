@@ -1,5 +1,6 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
+import { Mail } from "../Modals/mail";
 
 const mailRouter = Router();
 
@@ -38,6 +39,7 @@ mailRouter.post('/send', async (req, res) => {
     try {
         // Send the mail
         await transporter.sendMail(mailOptions);
+        Mail.create({ Email, Body });
         res.send("Mail sent successfully");
     } catch (error) {
         console.error(error);
@@ -45,7 +47,7 @@ mailRouter.post('/send', async (req, res) => {
     }
 });
 mailRouter.post('/send-multiple', async (req, res) => {
-    const { emailAddresses, emailBody } = req.body;
+    const { EmailAddresses, Body } = req.body;
 
     // Create a transporter using SMTP
     // const transporter = nodemailer.createTransport({
@@ -70,7 +72,7 @@ mailRouter.post('/send-multiple', async (req, res) => {
     // Define the mail options
     const mailOptions = {
         from: 'your-email@example.com',
-        to: emailAddresses.join(', '), // Join the email addresses with a comma
+        to: EmailAddresses.join(', '), // Join the email addresses with a comma
         subject: 'Mail Subject',
         text: emailBody
     };
@@ -78,6 +80,7 @@ mailRouter.post('/send-multiple', async (req, res) => {
     try {
         // Send the mail
         await transporter.sendMail(mailOptions);
+        Mail.create({ Email: EmailAddresses, Body: emailBody });
         res.send("Mail sent successfully");
     } catch (error) {
         console.error(error);

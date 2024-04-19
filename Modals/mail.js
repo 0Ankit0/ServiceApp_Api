@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const mailSchema = new mongoose.Schema({
-    Email: {
+    Email: [{
         type: String,
         required: true,
-    },
+    }],
     Body: {
         type: String,
         required: true,
