@@ -1,14 +1,9 @@
 import { Router } from "express";
-import express from "express";
 import nodemailer from "nodemailer";
 
 const mailRouter = Router();
 
-var app = express();
 
-mailRouter.get('/', async (req, res) => { //this is /sendmail/index page
-    res.send("Welcome to the sendmail page");
-});
 mailRouter.post('/send', async (req, res) => {
     const { emailAddress, emailBody } = req.body;
 
